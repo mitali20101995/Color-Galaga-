@@ -43,9 +43,12 @@ class GameScene: SKScene
     
     func addEnemy()
     {
+        let randomx = arc4random_uniform(UInt32(self.size.width))
+        
         let redEnemyNode = SKSpriteNode(imageNamed: "enemyShip_red")
         redEnemyNode.zPosition = 1
-        redEnemyNode.position = CGPoint(x: self.size.width/2, y: self.size.height)
+        redEnemyNode.position.y = self.size.height
+        redEnemyNode.position.x = CGFloat(randomx)
         
         let moveAction = SKAction.moveTo(y:0, duration: 5)
         let deleteAction = SKAction.removeFromParent()
