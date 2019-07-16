@@ -2,7 +2,7 @@
 //  GameViewController.swift
 //  Colour Galaga
 //
-//  Created by Siddharth Trivedi on 2019-07-09.
+//  Created by Mitali Ahir on 2019-07-09.
 //  Copyright © 2019 Mitali Ahir. All rights reserved.
 //
 
