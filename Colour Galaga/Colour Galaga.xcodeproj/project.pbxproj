@@ -16,6 +16,9 @@
 		CECE489922D4EA5A00D0C0CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CECE489822D4EA5A00D0C0CB /* Assets.xcassets */; };
 		CECE489C22D4EA5A00D0C0CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CECE489A22D4EA5A00D0C0CB /* LaunchScreen.storyboard */; };
 		CEE058FA22DE11910090A15F /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE058F922DE11910090A15F /* StartScene.swift */; };
+		CEE058FC22DE470E0090A15F /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE058FB22DE470E0090A15F /* GameOverScene.swift */; };
+		CEE0590222DE7C9F0090A15F /* Updraft.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CEE0590122DE7C9F0090A15F /* Updraft.mp3 */; };
+		CEE0590422DE7FCC0090A15F /* sound1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CEE0590322DE7FCC0090A15F /* sound1.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		CECE489B22D4EA5A00D0C0CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CECE489D22D4EA5A00D0C0CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEE058F922DE11910090A15F /* StartScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
+		CEE058FB22DE470E0090A15F /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		CEE0590122DE7C9F0090A15F /* Updraft.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Updraft.mp3; sourceTree = "<group>"; };
+		CEE0590322DE7FCC0090A15F /* sound1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound1.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,8 +76,11 @@
 				CECE489522D4EA5800D0C0CB /* Main.storyboard */,
 				CECE489822D4EA5A00D0C0CB /* Assets.xcassets */,
 				CECE489A22D4EA5A00D0C0CB /* LaunchScreen.storyboard */,
+				CEE0590122DE7C9F0090A15F /* Updraft.mp3 */,
+				CEE0590322DE7FCC0090A15F /* sound1.mp3 */,
 				CECE489D22D4EA5A00D0C0CB /* Info.plist */,
 				CEE058F922DE11910090A15F /* StartScene.swift */,
+				CEE058FB22DE470E0090A15F /* GameOverScene.swift */,
 			);
 			path = "Colour Galaga";
 			sourceTree = "<group>";
@@ -138,7 +147,9 @@
 				CECE488E22D4EA5800D0C0CB /* GameScene.sks in Resources */,
 				CECE489922D4EA5A00D0C0CB /* Assets.xcassets in Resources */,
 				CECE489C22D4EA5A00D0C0CB /* LaunchScreen.storyboard in Resources */,
+				CEE0590422DE7FCC0090A15F /* sound1.mp3 in Resources */,
 				CECE489022D4EA5800D0C0CB /* Actions.sks in Resources */,
+				CEE0590222DE7C9F0090A15F /* Updraft.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +160,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEE058FC22DE470E0090A15F /* GameOverScene.swift in Sources */,
 				CECE489222D4EA5800D0C0CB /* GameScene.swift in Sources */,
 				CECE489422D4EA5800D0C0CB /* GameViewController.swift in Sources */,
 				CECE488C22D4EA5800D0C0CB /* AppDelegate.swift in Sources */,

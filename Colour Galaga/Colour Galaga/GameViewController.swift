@@ -18,6 +18,7 @@ class GameViewController: UIViewController {
       let startScene = StartScene(size: view.bounds.size)
         let skView = view as! SKView
         skView.presentScene(startScene)
+        skView.showsPhysics = true
        
     }
 
