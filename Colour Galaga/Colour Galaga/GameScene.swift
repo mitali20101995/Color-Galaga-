@@ -18,7 +18,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     let stopSoundNode = SKSpriteNode(imageNamed: "pause")
     var enemyTimer = Timer()
     var scores = 0
-    var scorelable = SKLabelNode()
+    var lives = 0
+    let scorelable = SKLabelNode(text: "0")
+    let liveLable = SKLabelNode(text: "3")
     var gameTime = 0
     
     var audioPlayer = AVAudioPlayer()
@@ -35,6 +37,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         addBackground()
         enemyTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: {(timer) in self.addEnemy()})
         addScore()
+        addLives()
         initSound()
         initMusic()
         addSoundNode()
@@ -140,6 +143,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         addChild(scorelable)
     }
     
+    func addLives()
+    {
+        liveLable.color = .white
+        liveLable.position = CGPoint(x: 20, y: 5)
+        addChild(liveLable)
+    }
+    
+    func addBlink(node:SKSpriteNode)
+    {
+        let fadeAction = SKAction.sequence([SKAction.fadeAlpha(to: 0.1, duration: 0.1),SKAction.fadeAlpha(to: 1.0, duration: 0.1)])
+        let repeatAction = SKAction.repeat(fadeAction, count: 10)
+        node.run(repeatAction)
+    }
+    
+    func shoot() {
+        
+        let bullet = SKSpriteNode(color: SKColor.blue, size: CGSize(width: 4,height: 4))
+        bullet.physicsBody = SKPhysicsBody(circleOfRadius: 2)
+        bullet.physicsBody?.affectedByGravity = false
+        bullet.position = CGPoint(x: playerNode.position.x, y: playerNode.position.y)
+        addChild(bullet)
+        
+        let rotationOffset = CGFloat.pi/2
+        let vector = rotate(vector: CGVector(dx: 0.25, dy: 0), angle:playerNode.zRotation+rotationOffset)
+        bullet.physicsBody?.applyImpulse(vector)
+    }
+    
+    func rotate(vector:CGVector, angle:CGFloat) -> CGVector {
+        let rotatedX = vector.dx * cos(angle) - vector.dy * sin(angle)
+        let rotatedY = vector.dx * sin(angle) + vector.dy * cos(angle)
+        return CGVector(dx: rotatedX, dy: rotatedY)
+    }
+    
     func presentGameSceneOver()
     {
         let gameOverScene = GameOverScene(size: self.size)
@@ -162,8 +198,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     {
         print("Contact")
         audioPlayer.play()
+        
+        
+        guard let nodeA = contact.bodyA.node else {return}
+        guard let nodeB = contact.bodyB.node else {return}
+        
+        if nodeB.name == "redEnemy"
+        {
+            nodeA.removeFromParent()
+            addBlink(node: playerNode)
+            lives -= 1
+        }
+        
         scores += 1
         scorelable.text = "Score: \(scores)"
+        liveLable.text = "Lives: \(lives)"
         
     }
     
@@ -178,14 +227,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 stopSoundNode.zPosition = 4
                 playSoundNode.zPosition = 5
                 musicplayer.pause()
+                return
             }
             else if atPoint(location) == playSoundNode
             {
                 stopSoundNode.zPosition = 5
                 playSoundNode.zPosition = 4
                 musicplayer.play()
+                return
             }
+            
+            shoot()
         }
+        
     }
     
    override func update(_ currentTime: TimeInterval) {
