@@ -32,7 +32,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     {
         gameSoundURL = Bundle.main.url(forResource: "sound1", withExtension: "mp3")
         musicURL = Bundle.main.url(forResource: "Updraft", withExtension: "mp3")
+        
         physicsWorld.contactDelegate = self
+        
         addPlayer()
         addBackground()
         enemyTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: {(timer) in self.addEnemy()})
@@ -90,7 +92,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func addPlayer()
     {
-       playerNode.position = CGPoint(x: playerNode.size.width/2, y: playerNode.size.height/2)
+        playerNode.position = CGPoint(x: playerNode.size.width/2, y: playerNode.size.height/2)
         playerNode.setScale(1.0)
         playerNode.zPosition = 1
         playerNode.physicsBody = SKPhysicsBody(rectangleOf: playerNode.size)
@@ -146,14 +148,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func addLives()
     {
         liveLable.color = .white
-        liveLable.position = CGPoint(x: 20, y: 5)
+        liveLable.position = CGPoint(x: 60, y: 5)
         addChild(liveLable)
     }
     
     func addBlink(node:SKSpriteNode)
     {
         let fadeAction = SKAction.sequence([SKAction.fadeAlpha(to: 0.1, duration: 0.1),SKAction.fadeAlpha(to: 1.0, duration: 0.1)])
-        let repeatAction = SKAction.repeat(fadeAction, count: 10)
+        let repeatAction = SKAction.repeat(fadeAction, count: 3)
         node.run(repeatAction)
     }
     
@@ -163,6 +165,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         bullet.physicsBody = SKPhysicsBody(circleOfRadius: 2)
         bullet.physicsBody?.affectedByGravity = false
         bullet.position = CGPoint(x: playerNode.position.x, y: playerNode.position.y)
+        bullet.name = "blueBullet"
         addChild(bullet)
         
         let rotationOffset = CGFloat.pi/2
@@ -186,12 +189,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
     {
+        
         let touch = touches.first
         if let location = touch?.location(in: self)
         {
+           
             playerNode.position.x = location.x
+           
         }
-        
+      
     }
     
     func didBegin(_ contact: SKPhysicsContact)
@@ -203,11 +209,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         guard let nodeA = contact.bodyA.node else {return}
         guard let nodeB = contact.bodyB.node else {return}
         
-        if nodeB.name == "redEnemy"
+        if nodeB.name == "RedEnemy"
         {
-            nodeA.removeFromParent()
-            addBlink(node: playerNode)
-            lives -= 1
+              print("node B is red enemy")
+            
+           // nodeA.removeFromParent()
+            //addBlink(node: playerNode)
+           // lives = lives - 1
+        }
+        if nodeA.name == "blueBullet"
+        {
+            print("node A is bullet")
+            
         }
         
         scores += 1
@@ -218,10 +231,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
+        
          let touch = touches.first
         if let location = touch?.location(in: self)
         {
-           
+            shoot()
             if atPoint(location) == stopSoundNode
             {
                 stopSoundNode.zPosition = 4
@@ -237,8 +251,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 return
             }
             
-            shoot()
+            
         }
+        
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
     }
     
